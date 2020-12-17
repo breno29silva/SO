@@ -1,17 +1,21 @@
 #include <stdio.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include "fibo.h"
 
 void callFork(int inicio, int fim, int meio){   
     int pID = fork();
     if(pID == -1){
-        cout << "Falhar ao criar fork" ; 
+      	cout << "Falhar ao criar fork" ; 
+      	exit(1);
     }else if(pID == 0){
-        cout << ", ";
-        showFib(meio + 1, fim);
+      	showFib(inicio, meio);
     }else{
-        showFib(inicio, meio);
+	wait(NULL);
+	cout << ", ";
+	showFib(meio + 1, fim);
+	cout << "\n";
     }
 }
 
@@ -31,4 +35,4 @@ int main(int argc, char *argv[ ]){
     start(atoi(argv[1]), atoi(argv[2]));
 
     return 0; 
-} 
+}

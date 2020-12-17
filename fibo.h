@@ -8,7 +8,7 @@ int fib(int n){
 }
 
 bool validarDados(int inicio, int fim){
-    return inicio >= 0 && fim > inicio;
+    return inicio > 0 && fim > inicio;
 }
 
 void showFib(int inicio, int fim){
