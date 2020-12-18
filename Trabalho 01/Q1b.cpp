@@ -12,6 +12,8 @@ void callFork(int inicio, int fim, int meio){
     }else if(pID == 0){
       	showFib(inicio, meio);
     }else{
+    	//Adicionado para ver o processo
+    	sleep(1);
 		wait(NULL);
 		cout << ", ";
 		showFib(meio + 1, fim);
