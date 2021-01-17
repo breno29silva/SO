@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int *values; /* this data is shared by the thread(s) */
+int* values; /* this data is shared by the thread(s) */
 void* runner(void* param); /* the thread */
 int main(int argc, char* argv[])
 {
@@ -17,8 +17,8 @@ int main(int argc, char* argv[])
 		fprintf(stderr, "Argument %d must be non-negative\n", terms);
 		exit(1);
 	}
-	values = (int *) malloc(terms * sizeof(int))
-	pthread_attr_init(&attr);
+	values = (int*)malloc(terms * sizeof(int))
+		pthread_attr_init(&attr);
 	pthread_create(&tid, &attr, runner, terms);
 	pthread_join(tid, NULL);
 	printf("The first %d elements are: ", terms);
@@ -28,7 +28,7 @@ void* runner(void* terms)
 {
 	int i, upper = atoi(terms);
 	if (upper > 0) {
-		for (i = 1; i < upper; i++)
+		for (i = 0; i < upper; i++)
 			v[i] = fibonacci(i);
 	}
 	pthread_exit(0);
