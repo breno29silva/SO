@@ -4,6 +4,8 @@
 
 int* values; /* this data is shared by the thread(s) */
 void* runner(void* param); /* the thread */
+int fibonacci(int term);
+void showTerms(int term);
 int main(int argc, char* argv[])
 {
 	int terms = atoi(argv[1]);
@@ -17,19 +19,29 @@ int main(int argc, char* argv[])
 		fprintf(stderr, "Argument %d must be non-negative\n", terms);
 		exit(1);
 	}
-	values = (int*)malloc(terms * sizeof(int))
+	values = (int*)malloc(terms * sizeof(int));
 		pthread_attr_init(&attr);
-	pthread_create(&tid, &attr, runner, terms);
+	pthread_create(&tid, &attr, runner, &terms);
 	pthread_join(tid, NULL);
 	printf("The first %d elements are: ", terms);
+	showTerms(terms);
+}
+
+void showTerms(int terms){
+	int i;
+	for(i = 0; i < terms; i++){
+		printf("%d ",values[i]);
+	}
+	printf("\n");
 }
 
 void* runner(void* terms)
 {
-	int i, upper = atoi(terms);
+	int i;
+	int *upper = terms;
 	if (upper > 0) {
-		for (i = 0; i < upper; i++)
-			v[i] = fibonacci(i);
+		for (i = 0; i < *upper; i++)
+			values[i] = fibonacci(i);
 	}
 	pthread_exit(0);
 }
@@ -42,6 +54,6 @@ int fibonacci(int term) {
 		return 1;
 	}
 	else {
-		return fibonacci(n - 1) + fibonacci(n - 2);
+		return fibonacci(term - 1) + fibonacci(term - 2);
 	}
 }
