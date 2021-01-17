@@ -1,3 +1,4 @@
+#define NOMINMAX
 #include <stdio.h>
 #include <windows.h>
 
